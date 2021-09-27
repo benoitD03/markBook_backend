@@ -26,7 +26,7 @@ exports.createBook = (req, res, next) => {
         imageUrl: req.body.imageUrl,
         comment: req.body.comment,
         finish: req.body.finish,
-        wish: req.body.finish,
+        wish: req.body.wish,
         isBeingRead: req.body.isBeingRead
 
     })

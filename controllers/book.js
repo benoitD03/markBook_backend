@@ -50,6 +50,17 @@ exports.getAllUsersBooks = (req, res, next) => {
     .catch(error => res.status(400).json({ error }));
 };
 
+// ****************** Afficher un livre en fonction de son id ******************
+
+exports.getOneBook = (req, res, next) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+    const userId = decodedToken.userId;
+    Book.findOne({ _id: req.params.id})
+        .then(user => res.status(200).json(user))
+        .catch(error => res.status(404).json({ error }));
+};
+
 // ****************** Modifier un livre ******************
 
 exports.modifyBook = (req, res, next) => {

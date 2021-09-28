@@ -57,7 +57,7 @@ exports.getOneBook = (req, res, next) => {
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const userId = decodedToken.userId;
     Book.findOne({ _id: req.params.id})
-        .then(user => res.status(200).json(user))
+        .then(book => res.status(200).json(book))
         .catch(error => res.status(404).json({ error }));
 };
 

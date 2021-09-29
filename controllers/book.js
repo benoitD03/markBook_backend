@@ -100,7 +100,7 @@ exports.deleteBook = (req, res, next) => {
     Book.findOne({ _id: req.params.id})
         .then(() => {
             Book.deleteOne({ _id: req.params.id})
-            .then(() => res.status(200).json({ message: 'Livre supprimé' }))
+            .then(book => res.status(200).json( book ))
             .catch(error => res.status(400).json({ error }));
         }) 
     .catch(error => res.status(500).json({ error })); 

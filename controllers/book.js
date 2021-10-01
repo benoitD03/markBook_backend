@@ -36,13 +36,27 @@ exports.createBook = (req, res, next) => {
 }
 
 
-// ****************** Afficher tous les livres d'un utilisateur ******************
+// ****************** Afficher tous les livres de l'utilisateur  connecté******************
 
 exports.getAllUsersBooks = (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const userId = decodedToken.userId;
     Book.find({ userId: userId})
+    .then(books => {
+        res.status(200).json({ books })
+    })
+        
+    .catch(error => res.status(400).json({ error }));
+};
+
+// ****************** Afficher tous les livres de l'utilisateur  connecté******************
+
+exports.getAllOthersUsersBooks = (req, res, next) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+    const userId = decodedToken.userId;
+    Book.find({ userId: req.params.id})
     .then(books => {
         res.status(200).json({ books })
     })
